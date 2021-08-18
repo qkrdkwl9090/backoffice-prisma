@@ -4,10 +4,15 @@
  */
 
 
+import type { Context } from "./api/context"
 
 
-
-
+declare global {
+  interface NexusGenCustomOutputProperties<TypeName extends string> {
+    crud: NexusPrisma<TypeName, 'crud'>
+    model: NexusPrisma<TypeName, 'model'>
+  }
+}
 
 declare global {
   interface NexusGen extends NexusGenTypes {}
@@ -87,7 +92,7 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: any;
+  context: Context;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;
