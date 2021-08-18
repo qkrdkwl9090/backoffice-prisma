@@ -20,7 +20,7 @@ model user {
   birthday  String   @db.VarChar(255)
   email     String   @unique @db.VarChar(255)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime? @updatedAt
   saleCount Int
   sales     sales[]
 }
@@ -30,7 +30,7 @@ model company {
   name      String   @db.VarChar(255)
   domain    String   @unique @db.VarChar(255)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime? @updatedAt
   user      user[]
 }
 
@@ -38,7 +38,7 @@ model team {
   id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(255)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime? @updatedAt
   user      user[]
 }
 
@@ -49,13 +49,13 @@ model sales {
   productId Int
   product   product  @relation(fields: [productId], references: [id])
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime? @updatedAt
 }
 
 model product {
   id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(255)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime? @updatedAt
   sales     sales[]
 }

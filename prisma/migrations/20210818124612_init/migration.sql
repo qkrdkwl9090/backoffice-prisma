@@ -7,7 +7,7 @@ CREATE TABLE `user` (
     `birthday` VARCHAR(255) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
+    `updatedAt` DATETIME(3),
     `saleCount` INTEGER NOT NULL,
 
     UNIQUE INDEX `user.email_unique`(`email`),
@@ -20,7 +20,7 @@ CREATE TABLE `company` (
     `name` VARCHAR(255) NOT NULL,
     `domain` VARCHAR(255) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
+    `updatedAt` DATETIME(3),
 
     UNIQUE INDEX `company.domain_unique`(`domain`),
     PRIMARY KEY (`id`)
@@ -31,7 +31,7 @@ CREATE TABLE `team` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
+    `updatedAt` DATETIME(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -42,7 +42,7 @@ CREATE TABLE `sales` (
     `userId` INTEGER NOT NULL,
     `productId` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
+    `updatedAt` DATETIME(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -52,7 +52,7 @@ CREATE TABLE `product` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updatedAt` DATETIME(3) NOT NULL,
+    `updatedAt` DATETIME(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
