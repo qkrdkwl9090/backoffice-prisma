@@ -4,7 +4,7 @@
  */
 
 
-import type { Context } from "./api/context"
+import type { iContext } from "./api/context"
 
 
 declare global {
@@ -30,10 +30,39 @@ export interface NexusGenScalars {
   Float: number
   Boolean: boolean
   ID: string
+  DateTime: any
 }
 
 export interface NexusGenObjects {
   Query: {};
+  company: { // root type
+    domain: string; // String!
+    id: number; // Int!
+    name: string; // String!
+  }
+  product: { // root type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    name: string; // String!
+  }
+  sales: { // root type
+    id: number; // Int!
+    productId: number; // Int!
+    userId: number; // Int!
+  }
+  team: { // root type
+    id: number; // Int!
+    name: string; // String!
+  }
+  user: { // root type
+    birthday: string; // String!
+    companyId: number; // Int!
+    email: string; // String!
+    id: number; // Int!
+    name: string; // String!
+    saleCount: number; // Int!
+    teamId: number; // Int!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -48,17 +77,105 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Query: { // field return type
-    ok: boolean; // Boolean!
+    company: Array<NexusGenRootTypes['company'] | null> | null; // [company]
+    product: Array<NexusGenRootTypes['product'] | null> | null; // [product]
+    sales: Array<NexusGenRootTypes['sales'] | null> | null; // [sales]
+    team: Array<NexusGenRootTypes['team'] | null> | null; // [team]
+    user: Array<NexusGenRootTypes['user'] | null> | null; // [user]
+  }
+  company: { // field return type
+    domain: string; // String!
+    id: number; // Int!
+    name: string; // String!
+  }
+  product: { // field return type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    name: string; // String!
+  }
+  sales: { // field return type
+    id: number; // Int!
+    productId: number; // Int!
+    userId: number; // Int!
+  }
+  team: { // field return type
+    id: number; // Int!
+    name: string; // String!
+  }
+  user: { // field return type
+    birthday: string; // String!
+    companyId: number; // Int!
+    email: string; // String!
+    id: number; // Int!
+    name: string; // String!
+    saleCount: number; // Int!
+    teamId: number; // Int!
   }
 }
 
 export interface NexusGenFieldTypeNames {
   Query: { // field return type name
-    ok: 'Boolean'
+    company: 'company'
+    product: 'product'
+    sales: 'sales'
+    team: 'team'
+    user: 'user'
+  }
+  company: { // field return type name
+    domain: 'String'
+    id: 'Int'
+    name: 'String'
+  }
+  product: { // field return type name
+    createdAt: 'DateTime'
+    id: 'Int'
+    name: 'String'
+  }
+  sales: { // field return type name
+    id: 'Int'
+    productId: 'Int'
+    userId: 'Int'
+  }
+  team: { // field return type name
+    id: 'Int'
+    name: 'String'
+  }
+  user: { // field return type name
+    birthday: 'String'
+    companyId: 'Int'
+    email: 'String'
+    id: 'Int'
+    name: 'String'
+    saleCount: 'Int'
+    teamId: 'Int'
   }
 }
 
 export interface NexusGenArgTypes {
+  Query: {
+    company: { // args
+      id?: number | null; // Int
+      name?: string | null; // String
+    }
+    product: { // args
+      id?: number | null; // Int
+      name?: string | null; // String
+    }
+    sales: { // args
+      id?: number | null; // Int
+      productId?: number | null; // Int
+      userId?: number | null; // Int
+    }
+    team: { // args
+      id?: number | null; // Int
+      name?: string | null; // String
+    }
+    user: { // args
+      companyId?: number | null; // Int
+      id?: number | null; // Int
+      teamId?: number | null; // Int
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
@@ -92,7 +209,7 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: Context;
+  context: iContext;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;

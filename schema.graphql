@@ -2,6 +2,45 @@
 ### Do not make changes to this file directly
 
 
+scalar DateTime
+
 type Query {
-  ok: Boolean!
+  company(id: Int, name: String): [company]
+  product(id: Int, name: String): [product]
+  sales(id: Int, productId: Int, userId: Int): [sales]
+  team(id: Int, name: String): [team]
+  user(companyId: Int, id: Int, teamId: Int): [user]
+}
+
+type company {
+  domain: String!
+  id: Int!
+  name: String!
+}
+
+type product {
+  createdAt: DateTime!
+  id: Int!
+  name: String!
+}
+
+type sales {
+  id: Int!
+  productId: Int!
+  userId: Int!
+}
+
+type team {
+  id: Int!
+  name: String!
+}
+
+type user {
+  birthday: String!
+  companyId: Int!
+  email: String!
+  id: Int!
+  name: String!
+  saleCount: Int!
+  teamId: Int!
 }

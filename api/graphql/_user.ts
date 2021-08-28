@@ -1,7 +1,7 @@
-import { objectType } from 'nexus'
+import { extendType, intArg, objectType } from "nexus";
 
 export const user = objectType({
-  name: 'user',            
+  name: "user",
   definition(t) {
     t.model.id();
     t.model.companyId();
@@ -11,4 +11,27 @@ export const user = objectType({
     t.model.email();
     t.model.saleCount();
   },
-})
+});
+export const userQuery = extendType({
+  type: "Query",
+  definition(t) {
+    t.list.field("user", {
+      type: "user",
+      args: {
+        id: intArg(),
+        companyId: intArg(),
+        teamId: intArg(),
+      },
+      resolve: async (_root, args, ctx) => {
+        const { id, companyId, teamId } = args;
+        return await ctx.prisma.user.findMany({
+          where: {
+            id,
+            companyId,
+            teamId,
+          },
+        });
+      },
+    });
+  },
+});

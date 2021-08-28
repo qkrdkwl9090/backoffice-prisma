@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npx prisma migrate deploy && cross-env AS_JAVASCRIPT=true node dist/api/index.js",
     "dev": "ts-node-dev --transpile-only --no-notify api/index.ts",
     "build": "tsc"
   },
