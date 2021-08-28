@@ -4,7 +4,7 @@ export const sales = objectType({
   name: "sales",
   definition(t) {
     t.model.id();
-    t.model.userId();
+    t.model.employeeId();
     t.model.productId();
   },
 });
@@ -15,15 +15,15 @@ export const salesQuery = extendType({
       type: "sales",
       args: {
         id: intArg(),
-        userId: intArg(),
+        employeeId: intArg(),
         productId: intArg(),
       },
       resolve: async (_root, args, ctx) => {
-        const { id, userId, productId } = args;
+        const { id, employeeId, productId } = args;
         return await ctx.prisma.sales.findMany({
           where: {
             id,
-            userId,
+            employeeId,
             productId,
           },
         });

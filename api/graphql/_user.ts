@@ -1,15 +1,14 @@
-import { extendType, intArg, objectType } from "nexus";
+import { extendType, intArg, objectType, stringArg } from "nexus";
 
 export const user = objectType({
   name: "user",
   definition(t) {
     t.model.id();
-    t.model.companyId();
-    t.model.teamId();
-    t.model.name();
-    t.model.birthday();
     t.model.email();
-    t.model.saleCount();
+    t.model.password();
+    t.model.name();
+    t.model.createdAt();
+    t.model.updatedAt();
   },
 });
 export const userQuery = extendType({
@@ -19,16 +18,16 @@ export const userQuery = extendType({
       type: "user",
       args: {
         id: intArg(),
-        companyId: intArg(),
-        teamId: intArg(),
+        email: stringArg(),
+        name: stringArg(),
       },
       resolve: async (_root, args, ctx) => {
-        const { id, companyId, teamId } = args;
+        const { id, email, name } = args;
         return await ctx.prisma.user.findMany({
           where: {
             id,
-            companyId,
-            teamId,
+            email,
+            name,
           },
         });
       },
