@@ -4,6 +4,7 @@ import { sales, salesQuery } from "./_sales";
 import { team, teamQuery } from "./_team";
 import { user, userQuery } from "./_user";
 import { employee, employeeQuery } from "./_employee";
+import { sessionMutation } from "./session";
 
 export const types = {
   company,
@@ -21,4 +22,4 @@ export const query = {
   userQuery,
   employeeQuery,
 };
-export const mutation = {};
+export const mutation = { sessionMutation };
