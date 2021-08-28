@@ -6,16 +6,27 @@ scalar DateTime
 
 type Query {
   company(id: Int, name: String): [company]
+  employee(companyId: Int, id: Int, teamId: Int): [employee]
   product(id: Int, name: String): [product]
-  sales(id: Int, productId: Int, userId: Int): [sales]
+  sales(employeeId: Int, id: Int, productId: Int): [sales]
   team(id: Int, name: String): [team]
-  user(companyId: Int, id: Int, teamId: Int): [user]
+  user(email: String, id: Int, name: String): [user]
 }
 
 type company {
   domain: String!
   id: Int!
   name: String!
+}
+
+type employee {
+  birthday: String!
+  companyId: Int!
+  email: String!
+  id: Int!
+  name: String!
+  saleCount: Int!
+  teamId: Int!
 }
 
 type product {
@@ -25,9 +36,9 @@ type product {
 }
 
 type sales {
+  employeeId: Int!
   id: Int!
   productId: Int!
-  userId: Int!
 }
 
 type team {
@@ -36,11 +47,10 @@ type team {
 }
 
 type user {
-  birthday: String!
-  companyId: Int!
+  createdAt: DateTime!
   email: String!
   id: Int!
   name: String!
-  saleCount: Int!
-  teamId: Int!
+  password: String!
+  updatedAt: DateTime
 }

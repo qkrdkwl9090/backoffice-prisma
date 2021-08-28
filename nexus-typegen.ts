@@ -40,21 +40,7 @@ export interface NexusGenObjects {
     id: number; // Int!
     name: string; // String!
   }
-  product: { // root type
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
-    id: number; // Int!
-    name: string; // String!
-  }
-  sales: { // root type
-    id: number; // Int!
-    productId: number; // Int!
-    userId: number; // Int!
-  }
-  team: { // root type
-    id: number; // Int!
-    name: string; // String!
-  }
-  user: { // root type
+  employee: { // root type
     birthday: string; // String!
     companyId: number; // Int!
     email: string; // String!
@@ -62,6 +48,28 @@ export interface NexusGenObjects {
     name: string; // String!
     saleCount: number; // Int!
     teamId: number; // Int!
+  }
+  product: { // root type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    name: string; // String!
+  }
+  sales: { // root type
+    employeeId: number; // Int!
+    id: number; // Int!
+    productId: number; // Int!
+  }
+  team: { // root type
+    id: number; // Int!
+    name: string; // String!
+  }
+  user: { // root type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    email: string; // String!
+    id: number; // Int!
+    name: string; // String!
+    password: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
 }
 
@@ -78,6 +86,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   Query: { // field return type
     company: Array<NexusGenRootTypes['company'] | null> | null; // [company]
+    employee: Array<NexusGenRootTypes['employee'] | null> | null; // [employee]
     product: Array<NexusGenRootTypes['product'] | null> | null; // [product]
     sales: Array<NexusGenRootTypes['sales'] | null> | null; // [sales]
     team: Array<NexusGenRootTypes['team'] | null> | null; // [team]
@@ -88,21 +97,7 @@ export interface NexusGenFieldTypes {
     id: number; // Int!
     name: string; // String!
   }
-  product: { // field return type
-    createdAt: NexusGenScalars['DateTime']; // DateTime!
-    id: number; // Int!
-    name: string; // String!
-  }
-  sales: { // field return type
-    id: number; // Int!
-    productId: number; // Int!
-    userId: number; // Int!
-  }
-  team: { // field return type
-    id: number; // Int!
-    name: string; // String!
-  }
-  user: { // field return type
+  employee: { // field return type
     birthday: string; // String!
     companyId: number; // Int!
     email: string; // String!
@@ -111,11 +106,34 @@ export interface NexusGenFieldTypes {
     saleCount: number; // Int!
     teamId: number; // Int!
   }
+  product: { // field return type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    id: number; // Int!
+    name: string; // String!
+  }
+  sales: { // field return type
+    employeeId: number; // Int!
+    id: number; // Int!
+    productId: number; // Int!
+  }
+  team: { // field return type
+    id: number; // Int!
+    name: string; // String!
+  }
+  user: { // field return type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    email: string; // String!
+    id: number; // Int!
+    name: string; // String!
+    password: string; // String!
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
 }
 
 export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     company: 'company'
+    employee: 'employee'
     product: 'product'
     sales: 'sales'
     team: 'team'
@@ -126,21 +144,7 @@ export interface NexusGenFieldTypeNames {
     id: 'Int'
     name: 'String'
   }
-  product: { // field return type name
-    createdAt: 'DateTime'
-    id: 'Int'
-    name: 'String'
-  }
-  sales: { // field return type name
-    id: 'Int'
-    productId: 'Int'
-    userId: 'Int'
-  }
-  team: { // field return type name
-    id: 'Int'
-    name: 'String'
-  }
-  user: { // field return type name
+  employee: { // field return type name
     birthday: 'String'
     companyId: 'Int'
     email: 'String'
@@ -148,6 +152,28 @@ export interface NexusGenFieldTypeNames {
     name: 'String'
     saleCount: 'Int'
     teamId: 'Int'
+  }
+  product: { // field return type name
+    createdAt: 'DateTime'
+    id: 'Int'
+    name: 'String'
+  }
+  sales: { // field return type name
+    employeeId: 'Int'
+    id: 'Int'
+    productId: 'Int'
+  }
+  team: { // field return type name
+    id: 'Int'
+    name: 'String'
+  }
+  user: { // field return type name
+    createdAt: 'DateTime'
+    email: 'String'
+    id: 'Int'
+    name: 'String'
+    password: 'String'
+    updatedAt: 'DateTime'
   }
 }
 
@@ -157,23 +183,28 @@ export interface NexusGenArgTypes {
       id?: number | null; // Int
       name?: string | null; // String
     }
+    employee: { // args
+      companyId?: number | null; // Int
+      id?: number | null; // Int
+      teamId?: number | null; // Int
+    }
     product: { // args
       id?: number | null; // Int
       name?: string | null; // String
     }
     sales: { // args
+      employeeId?: number | null; // Int
       id?: number | null; // Int
       productId?: number | null; // Int
-      userId?: number | null; // Int
     }
     team: { // args
       id?: number | null; // Int
       name?: string | null; // String
     }
     user: { // args
-      companyId?: number | null; // Int
+      email?: string | null; // String
       id?: number | null; // Int
-      teamId?: number | null; // Int
+      name?: string | null; // String
     }
   }
 }

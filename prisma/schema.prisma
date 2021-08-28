@@ -10,52 +10,64 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model user {
-  id        Int      @id @default(autoincrement())
+model employee {
+  id        Int       @id @default(autoincrement())
   companyId Int
-  company   company  @relation(fields: [companyId], references: [id])
+  company   company   @relation(fields: [companyId], references: [id])
   teamId    Int
-  team      team     @relation(fields: [teamId], references: [id])
-  name      String   @db.VarChar(255)
-  birthday  String   @db.VarChar(255)
-  email     String   @unique @db.VarChar(255)
-  createdAt DateTime @default(now())
+  team      team      @relation(fields: [teamId], references: [id])
+  name      String    @db.VarChar(255)
+  birthday  String    @db.VarChar(255)
+  email     String    @unique @db.VarChar(255) 
+  createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   saleCount Int
   sales     sales[]
 }
 
 model company {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(255)
-  domain    String   @unique @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime? @updatedAt
-  user      user[]
+  id        Int        @id @default(autoincrement())
+  name      String     @db.VarChar(255)
+  domain    String     @unique @db.VarChar(255)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime?  @updatedAt
+  employee  employee[]
+  team      team[]
 }
 
 model team {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime? @updatedAt
-  user      user[]
+  id        Int        @id @default(autoincrement())
+  name      String     @db.VarChar(255)
+  companyId Int
+  company   company    @relation(fields: [companyId], references: [id])
+  createdAt DateTime   @default(now())
+  updatedAt DateTime?  @updatedAt
+  employee  employee[]
 }
 
 model sales {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  user      user     @relation(fields: [userId], references: [id])
-  productId Int
-  product   product  @relation(fields: [productId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime? @updatedAt
+  id         Int       @id @default(autoincrement())
+  employeeId Int
+  employee   employee  @relation(fields: [employeeId], references: [id])
+  productId  Int
+  product    product   @relation(fields: [productId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime? @updatedAt
 }
 
 model product {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(255)
-  createdAt DateTime @default(now())
+  id        Int       @id @default(autoincrement())
+  name      String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   sales     sales[]
+}
+
+model user {
+  id        Int       @id @default(autoincrement())
+  email     String    @db.VarChar(255) @unique
+  password  String    @db.VarChar(255)
+  name      String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
