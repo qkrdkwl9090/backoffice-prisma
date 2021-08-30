@@ -1,5 +1,9 @@
 node_modules
 # Keep environment variables out of version control
 .env
-.nexus-typegen.ts
-.schema.graphql
+
+dist
+
+# Nexus.js generate ouput
+nexus-typegen.ts
+schema.graphql
