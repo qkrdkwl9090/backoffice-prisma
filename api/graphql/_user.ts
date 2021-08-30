@@ -17,19 +17,26 @@ export const userQuery = extendType({
     t.list.field("user", {
       type: "user",
       args: {
-        id: intArg(),
         email: stringArg(),
         name: stringArg(),
       },
       resolve: async (_root, args, ctx) => {
-        const { id, email, name } = args;
-        return await ctx.prisma.user.findMany({
-          where: {
-            id,
-            email,
-            name,
-          },
-        });
+        const { email, name } = args;
+        if (email) {
+          return await ctx.prisma.user.findMany({
+            where: {
+              email,
+            },
+          });
+        } else if (name) {
+          return await ctx.prisma.user.findMany({
+            where: {
+              name,
+            },
+          });
+        } else {
+          return await ctx.prisma.user.findMany();
+        }
       },
     });
   },

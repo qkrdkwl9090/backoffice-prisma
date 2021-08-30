@@ -5,6 +5,11 @@ export const team = objectType({
   definition(t) {
     t.model.id();
     t.model.name();
+    t.model.companyId();
+    t.model.company();
+    t.model.createdAt();
+    t.model.updatedAt();
+    t.model.employee();
   },
 });
 export const teamQuery = extendType({
@@ -13,17 +18,33 @@ export const teamQuery = extendType({
     t.list.field("team", {
       type: "team",
       args: {
-        id: intArg(),
         name: stringArg(),
+        companyId: intArg(),
       },
       resolve: async (_root, args, ctx) => {
-        const { id, name } = args;
-        return await ctx.prisma.team.findMany({
-          where: {
-            id,
-            name,
-          },
-        });
+        const { companyId, name } = args;
+        if (companyId && name) {
+          return await ctx.prisma.team.findMany({
+            where: {
+              name,
+              companyId,
+            },
+          });
+        } else if (companyId) {
+          return await ctx.prisma.team.findMany({
+            where: {
+              companyId,
+            },
+          });
+        } else if (name) {
+          return await ctx.prisma.team.findMany({
+            where: {
+              name,
+            },
+          });
+        } else {
+          return await ctx.prisma.team.findMany();
+        }
       },
     });
   },

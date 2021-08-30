@@ -18,11 +18,11 @@ model employee {
   team      team      @relation(fields: [teamId], references: [id])
   name      String    @db.VarChar(255)
   birthday  String    @db.VarChar(255)
-  email     String    @unique @db.VarChar(255) 
+  email     String    @unique @db.VarChar(255)
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
   saleCount Int
-  sales     sales[]
+  sale      sale[]
 }
 
 model company {
@@ -45,7 +45,7 @@ model team {
   employee  employee[]
 }
 
-model sales {
+model sale {
   id         Int       @id @default(autoincrement())
   employeeId Int
   employee   employee  @relation(fields: [employeeId], references: [id])
@@ -53,6 +53,8 @@ model sales {
   product    product   @relation(fields: [productId], references: [id])
   createdAt  DateTime  @default(now())
   updatedAt  DateTime? @updatedAt
+
+  @@map("sales")
 }
 
 model product {
@@ -60,12 +62,12 @@ model product {
   name      String    @db.VarChar(255)
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  sales     sales[]
+  sale      sale[]
 }
 
 model user {
   id        Int       @id @default(autoincrement())
-  email     String    @db.VarChar(255) @unique
+  email     String    @unique @db.VarChar(255)
   password  String    @db.VarChar(255)
   name      String    @db.VarChar(255)
   createdAt DateTime  @default(now())

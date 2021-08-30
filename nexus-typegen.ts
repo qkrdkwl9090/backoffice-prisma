@@ -19,6 +19,16 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  employeeWhereUniqueInput: { // input type
+    email?: string | null; // String
+    id?: number | null; // Int
+  }
+  saleWhereUniqueInput: { // input type
+    id?: number | null; // Int
+  }
+  teamWhereUniqueInput: { // input type
+    id?: number | null; // Int
+  }
 }
 
 export interface NexusGenEnums {
@@ -34,6 +44,7 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Mutation: {};
   Query: {};
   company: { // root type
     domain: string; // String!
@@ -53,15 +64,26 @@ export interface NexusGenObjects {
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
     name: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
-  sales: { // root type
+  sale: { // root type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
     employeeId: number; // Int!
     id: number; // Int!
     productId: number; // Int!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  session: { // root type
+    header?: string | null; // String
+    success?: boolean | null; // Boolean
+    token?: string | null; // String
   }
   team: { // root type
+    companyId: number; // Int!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
     name: string; // String!
+    updatedAt?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   user: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -84,41 +106,65 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Mutation: { // field return type
+    refreshUserToken: NexusGenRootTypes['session'] | null; // session
+    signIn: NexusGenRootTypes['session'] | null; // session
+  }
   Query: { // field return type
     company: Array<NexusGenRootTypes['company'] | null> | null; // [company]
     employee: Array<NexusGenRootTypes['employee'] | null> | null; // [employee]
     product: Array<NexusGenRootTypes['product'] | null> | null; // [product]
-    sales: Array<NexusGenRootTypes['sales'] | null> | null; // [sales]
+    sale: Array<NexusGenRootTypes['sale'] | null> | null; // [sale]
     team: Array<NexusGenRootTypes['team'] | null> | null; // [team]
     user: Array<NexusGenRootTypes['user'] | null> | null; // [user]
   }
   company: { // field return type
     domain: string; // String!
+    employee: NexusGenRootTypes['employee'][]; // [employee!]!
     id: number; // Int!
     name: string; // String!
+    team: NexusGenRootTypes['team'][]; // [team!]!
   }
   employee: { // field return type
     birthday: string; // String!
+    company: NexusGenRootTypes['company']; // company!
     companyId: number; // Int!
     email: string; // String!
     id: number; // Int!
     name: string; // String!
+    sale: NexusGenRootTypes['sale'][]; // [sale!]!
     saleCount: number; // Int!
+    team: NexusGenRootTypes['team']; // team!
     teamId: number; // Int!
   }
   product: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
     name: string; // String!
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
-  sales: { // field return type
+  sale: { // field return type
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    employee: NexusGenRootTypes['employee']; // employee!
     employeeId: number; // Int!
     id: number; // Int!
+    product: NexusGenRootTypes['product']; // product!
     productId: number; // Int!
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
+  }
+  session: { // field return type
+    header: string | null; // String
+    success: boolean | null; // Boolean
+    token: string | null; // String
   }
   team: { // field return type
+    company: NexusGenRootTypes['company']; // company!
+    companyId: number; // Int!
+    createdAt: NexusGenScalars['DateTime']; // DateTime!
+    employee: NexusGenRootTypes['employee'][]; // [employee!]!
     id: number; // Int!
     name: string; // String!
+    updatedAt: NexusGenScalars['DateTime'] | null; // DateTime
   }
   user: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -131,41 +177,65 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  Mutation: { // field return type name
+    refreshUserToken: 'session'
+    signIn: 'session'
+  }
   Query: { // field return type name
     company: 'company'
     employee: 'employee'
     product: 'product'
-    sales: 'sales'
+    sale: 'sale'
     team: 'team'
     user: 'user'
   }
   company: { // field return type name
     domain: 'String'
+    employee: 'employee'
     id: 'Int'
     name: 'String'
+    team: 'team'
   }
   employee: { // field return type name
     birthday: 'String'
+    company: 'company'
     companyId: 'Int'
     email: 'String'
     id: 'Int'
     name: 'String'
+    sale: 'sale'
     saleCount: 'Int'
+    team: 'team'
     teamId: 'Int'
   }
   product: { // field return type name
     createdAt: 'DateTime'
     id: 'Int'
     name: 'String'
+    updatedAt: 'DateTime'
   }
-  sales: { // field return type name
+  sale: { // field return type name
+    createdAt: 'DateTime'
+    employee: 'employee'
     employeeId: 'Int'
     id: 'Int'
+    product: 'product'
     productId: 'Int'
+    updatedAt: 'DateTime'
+  }
+  session: { // field return type name
+    header: 'String'
+    success: 'Boolean'
+    token: 'String'
   }
   team: { // field return type name
+    company: 'company'
+    companyId: 'Int'
+    createdAt: 'DateTime'
+    employee: 'employee'
     id: 'Int'
     name: 'String'
+    updatedAt: 'DateTime'
   }
   user: { // field return type name
     createdAt: 'DateTime'
@@ -178,33 +248,64 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    signIn: { // args
+      email: string; // String!
+      password: string; // String!
+    }
+  }
   Query: {
     company: { // args
-      id?: number | null; // Int
       name?: string | null; // String
     }
     employee: { // args
       companyId?: number | null; // Int
-      id?: number | null; // Int
       teamId?: number | null; // Int
     }
     product: { // args
-      id?: number | null; // Int
       name?: string | null; // String
     }
-    sales: { // args
+    sale: { // args
       employeeId?: number | null; // Int
-      id?: number | null; // Int
       productId?: number | null; // Int
     }
     team: { // args
-      id?: number | null; // Int
+      companyId?: number | null; // Int
       name?: string | null; // String
     }
     user: { // args
       email?: string | null; // String
-      id?: number | null; // Int
       name?: string | null; // String
+    }
+  }
+  company: {
+    employee: { // args
+      after?: NexusGenInputs['employeeWhereUniqueInput'] | null; // employeeWhereUniqueInput
+      before?: NexusGenInputs['employeeWhereUniqueInput'] | null; // employeeWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+    team: { // args
+      after?: NexusGenInputs['teamWhereUniqueInput'] | null; // teamWhereUniqueInput
+      before?: NexusGenInputs['teamWhereUniqueInput'] | null; // teamWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+  }
+  employee: {
+    sale: { // args
+      after?: NexusGenInputs['saleWhereUniqueInput'] | null; // saleWhereUniqueInput
+      before?: NexusGenInputs['saleWhereUniqueInput'] | null; // saleWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+  }
+  team: {
+    employee: { // args
+      after?: NexusGenInputs['employeeWhereUniqueInput'] | null; // employeeWhereUniqueInput
+      before?: NexusGenInputs['employeeWhereUniqueInput'] | null; // employeeWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
     }
   }
 }
@@ -217,7 +318,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = never;
 

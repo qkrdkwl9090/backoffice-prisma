@@ -22,6 +22,9 @@ export const sessionMutation = extendType({
           throw new Error(`No user found for email: ${email}`);
         }
         const passwordValid = password;
+        const saltRounds = 12;
+        const passwordEncrypt = await brcypt.hash(args.password, saltRounds);
+        console.log(passwordEncrypt);
         const passwordCompare = await brcypt.compare(
           passwordValid,
           user.password

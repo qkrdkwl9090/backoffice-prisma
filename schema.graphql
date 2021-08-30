@@ -4,46 +4,85 @@
 
 scalar DateTime
 
+type Mutation {
+  refreshUserToken: session
+  signIn(email: String!, password: String!): session
+}
+
 type Query {
-  company(id: Int, name: String): [company]
-  employee(companyId: Int, id: Int, teamId: Int): [employee]
-  product(id: Int, name: String): [product]
-  sales(employeeId: Int, id: Int, productId: Int): [sales]
-  team(id: Int, name: String): [team]
-  user(email: String, id: Int, name: String): [user]
+  company(name: String): [company]
+  employee(companyId: Int, teamId: Int): [employee]
+  product(name: String): [product]
+  sale(employeeId: Int, productId: Int): [sale]
+  team(companyId: Int, name: String): [team]
+  user(email: String, name: String): [user]
 }
 
 type company {
   domain: String!
+  employee(after: employeeWhereUniqueInput, before: employeeWhereUniqueInput, first: Int, last: Int): [employee!]!
   id: Int!
   name: String!
+  team(after: teamWhereUniqueInput, before: teamWhereUniqueInput, first: Int, last: Int): [team!]!
 }
 
 type employee {
   birthday: String!
+  company: company!
   companyId: Int!
   email: String!
   id: Int!
   name: String!
+  sale(after: saleWhereUniqueInput, before: saleWhereUniqueInput, first: Int, last: Int): [sale!]!
   saleCount: Int!
+  team: team!
   teamId: Int!
+}
+
+input employeeWhereUniqueInput {
+  email: String
+  id: Int
 }
 
 type product {
   createdAt: DateTime!
   id: Int!
   name: String!
+  updatedAt: DateTime
 }
 
-type sales {
+type sale {
+  createdAt: DateTime!
+  employee: employee!
   employeeId: Int!
   id: Int!
+  product: product!
   productId: Int!
+  updatedAt: DateTime
+}
+
+input saleWhereUniqueInput {
+  id: Int
+}
+
+type session {
+  header: String
+  success: Boolean
+  token: String
 }
 
 type team {
+  company: company!
+  companyId: Int!
+  createdAt: DateTime!
+  employee(after: employeeWhereUniqueInput, before: employeeWhereUniqueInput, first: Int, last: Int): [employee!]!
   id: Int!
   name: String!
+  updatedAt: DateTime
+}
+
+input teamWhereUniqueInput {
+  id: Int
 }
 
 type user {

@@ -6,6 +6,8 @@ export const product = objectType({
     t.model.id();
     t.model.name();
     t.model.createdAt();
+    t.model.updatedAt();
+    t.model.createdAt();
   },
 });
 export const productQuery = extendType({
@@ -14,17 +16,19 @@ export const productQuery = extendType({
     t.list.field("product", {
       type: "product",
       args: {
-        id: intArg(),
         name: stringArg(),
       },
       resolve: async (_root, args, ctx) => {
-        const { id, name } = args;
-        return await ctx.prisma.product.findMany({
-          where: {
-            id,
-            name,
-          },
-        });
+        const { name } = args;
+        if (name) {
+          return await ctx.prisma.product.findMany({
+            where: {
+              name,
+            },
+          });
+        } else {
+          return await ctx.prisma.product.findMany();
+        }
       },
     });
   },

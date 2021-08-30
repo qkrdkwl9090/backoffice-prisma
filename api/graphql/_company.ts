@@ -6,6 +6,8 @@ export const company = objectType({
     t.model.id();
     t.model.name();
     t.model.domain();
+    t.model.team();
+    t.model.employee();
   },
 });
 export const companyQuery = extendType({
@@ -14,17 +16,19 @@ export const companyQuery = extendType({
     t.list.field("company", {
       type: "company",
       args: {
-        id: intArg(),
         name: stringArg(),
       },
       resolve: async (_root, args, ctx) => {
-        const { id, name } = args;
-        return await ctx.prisma.company.findMany({
-          where: {
-            id,
-            name,
-          },
-        });
+        const { name } = args;
+        if (name) {
+          return await ctx.prisma.company.findMany({
+            where: {
+              name,
+            },
+          });
+        } else {
+          return await ctx.prisma.company.findMany();
+        }
       },
     });
   },

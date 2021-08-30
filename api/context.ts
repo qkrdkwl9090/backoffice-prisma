@@ -31,7 +31,7 @@ const getUserByJWT = (token: string): tUser | null => {
   }
 };
 export function context(req: any): iContext {
-  const header = req.headers["authorizationr"].split(" ");
+  const header = req.headers["authorization"].split(" ");
   const token = header.length > 1 ? header[1] : "";
   const currentUser = getUserByJWT(token) || null;
   return {
